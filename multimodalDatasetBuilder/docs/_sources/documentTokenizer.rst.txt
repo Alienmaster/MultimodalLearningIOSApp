@@ -1,0 +1,7 @@
+documentTokenizer module
+========================
+
+.. automodule:: documentTokenizer
+   :members:
+   :undoc-members:
+   :show-inheritance:

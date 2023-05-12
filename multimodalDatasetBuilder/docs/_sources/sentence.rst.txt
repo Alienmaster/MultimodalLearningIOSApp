@@ -1,0 +1,7 @@
+sentence module
+===============
+
+.. automodule:: sentence
+   :members:
+   :undoc-members:
+   :show-inheritance:

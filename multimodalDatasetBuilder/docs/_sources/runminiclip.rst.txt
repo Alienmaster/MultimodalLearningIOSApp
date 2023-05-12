@@ -1,0 +1,7 @@
+runminiclip module
+==================
+
+.. automodule:: runminiclip
+   :members:
+   :undoc-members:
+   :show-inheritance:

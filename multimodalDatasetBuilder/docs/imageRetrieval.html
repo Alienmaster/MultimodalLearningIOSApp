@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>imageRetrieval module &#8212; Multimodal Learning - Multimodal Dataset Builder  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="main module" href="main.html" />
+    <link rel="prev" title="duplicateWordsRemover module" href="duplicateWordsRemover.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-imageRetrieval">
+<span id="imageretrieval-module"></span><h1>imageRetrieval module<a class="headerlink" href="#module-imageRetrieval" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="imageRetrieval.ImageRetrieval">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">imageRetrieval.</span></span><span class="sig-name descname"><span class="pre">ImageRetrieval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_to_images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_to_cached_image_features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_of_best_candidate_imgs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_imgs_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus_word_representation_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imageRetrieval.ImageRetrieval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is responsible for retreiving appropriate images for sentences and their focus words.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path_to_images</strong> (<em>str</em>) – path to the directory where the images are</p></li>
+<li><p><strong>path_to_cached_image_features</strong> (<em>str</em>) – file that is saved after the first run and contains the image features which are used by CLIP to calculate the similarity between images and texts</p></li>
+<li><p><strong>num_of_best_candidate_imgs</strong> (<em>int</em>) – integer value which represents how many ‘good’ images must be found for a sentence to further process it.</p></li>
+<li><p><strong>candidate_imgs_threshold</strong> (<em>float</em>) – threshold for the similarity value calculated by CLIP that defines if an image is ‘good’ enough for ‘representing’ a sentence</p></li>
+<li><p><strong>focus_word_representation_threshold</strong> (<em>float</em>) – threshold for the similarity value calculated by CLIP that defines if an image is ‘good’ enough for ‘representing’ a focus word</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="imageRetrieval.ImageRetrieval.initImageFeatures">
+<span class="sig-name descname"><span class="pre">initImageFeatures</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#imageRetrieval.ImageRetrieval.initImageFeatures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads and returns the cached image features if a file was specified containing them, otherwise calculates and saves them first.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The image features which are created by CLIP in the preprocessing and encoding step</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="imageRetrieval.ImageRetrieval.get_similarity_for_sentences_and_img_features">
+<span class="sig-name descname"><span class="pre">get_similarity_for_sentences_and_img_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences_raw_form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_features</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imageRetrieval.ImageRetrieval.get_similarity_for_sentences_and_img_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the similarity between sentences and image features.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sentences_raw_form</strong> – List of sentences which are represented as strings</p></li>
+<li><p><strong>image_features</strong> – The image features as Torch Tensor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2d list containing the similarity values between sentences and images</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="imageRetrieval.ImageRetrieval.is_focus_word_in_image">
+<span class="sig-name descname"><span class="pre">is_focus_word_in_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus_word</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#imageRetrieval.ImageRetrieval.is_focus_word_in_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Estimates if a focus word is represented in the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>str</em>) – The file name of the image</p></li>
+<li><p><strong>focus_word</strong> (<em>str</em>) – The focus word that is checked if it is represented in the image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Boolean representing if the focus word is represented in the image</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="imageRetrieval.ImageRetrieval.get_image_with_most_focus_words">
+<span class="sig-name descname"><span class="pre">get_image_with_most_focus_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">imgs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">focus_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#imageRetrieval.ImageRetrieval.get_image_with_most_focus_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>If possible the ‘best’ image and the focus words it represents are returned. Otherwise an empty string and list are returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imgs</strong> – List with image file names</p></li>
+<li><p><strong>focus_words</strong> – List with focus words</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Name of the ‘best’ image and the focus words it represents</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(str, [])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="imageRetrieval.ImageRetrieval.get_similarity_for_sentences_and_images">
+<span class="sig-name descname"><span class="pre">get_similarity_for_sentences_and_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">focus_sentences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#imageRetrieval.ImageRetrieval.get_similarity_for_sentences_and_images" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the similarity between focus sentences and images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>focus_sentences</strong> – List of sentence objects which have at least one focus word</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>2d similaritiy between focus sentences and images</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="imageRetrieval.ImageRetrieval.find_best_matching_image">
+<span class="sig-name descname"><span class="pre">find_best_matching_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sentences</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#imageRetrieval.ImageRetrieval.find_best_matching_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each sentence, tries to find the best image that represents the sentence and most
+of the focus words. Returns if an image was found for at least one of the sentences.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>sentences</strong> (<em>[</em><em>]</em>) – List of sentence objects</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>boolean that specifies if there is at least one sentence with an image</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Multimodal Learning - Multimodal Dataset Builder</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">multimodalDatasetBuilder</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="concreteness.html">concreteness module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cwi.html">cwi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="document.html">document module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentTokenizer.html">documentTokenizer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="duplicateWordsRemover.html">duplicateWordsRemover module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">imageRetrieval module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mdb.html">mdb module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runminiclip.html">runminiclip module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sentence.html">sentence module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">multimodalDatasetBuilder</a><ul>
+      <li>Previous: <a href="duplicateWordsRemover.html" title="previous chapter">duplicateWordsRemover module</a></li>
+      <li>Next: <a href="main.html" title="next chapter">main module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, -.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/imageRetrieval.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

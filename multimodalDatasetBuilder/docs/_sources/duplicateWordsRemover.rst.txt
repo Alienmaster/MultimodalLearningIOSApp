@@ -1,0 +1,7 @@
+duplicateWordsRemover module
+============================
+
+.. automodule:: duplicateWordsRemover
+   :members:
+   :undoc-members:
+   :show-inheritance:

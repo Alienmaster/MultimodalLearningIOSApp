@@ -1,0 +1,7 @@
+cwi module
+==========
+
+.. automodule:: cwi
+   :members:
+   :undoc-members:
+   :show-inheritance:
