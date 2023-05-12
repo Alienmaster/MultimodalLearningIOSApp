@@ -1,5 +1,8 @@
 # Multimodal Learning
 
+# Demovideo
+A video of the app can be found in this repository
+
 The goal of this topic is to create a multimodal dataset which will be saved in a database and is accessible through a REST-API. An iOS-App is made which uses the API to display the multimodal documents. The App can be used via eyetracking.
 
 Documents (e.g. books, wikipedia articles ...) can be processed to create a multimodal dataset. For this, the focus words of the sentences are found. A focus word is a word that is complex and depictable at the same time. Then, for the sentences with at least one focus word an image is retrieved from the image dataset. In best case, the image represents the focus word/s and the context of the sentence. The next step is to save different versions of that image in which the focus word/s is/are highlighted. A document with at least one sentence that has at least one focus word and an image will be saved in a database.
